@@ -1,39 +1,8 @@
-var fs = require('fs');
-
-module.exports = function(customOptions) {
-  var defaultOptions = {
-    name: "Project X",
-    base: "src/twig/templates",
-    indexDest: "static-html/templates"
-  }
-
-  var options = customOptions ? Object.assign(defaultOptions, customOptions) : defaultOptions;
-  var sitemap = [];
-  var linksHTML = "";
-  var indexHTML = "";
-
-  fs.readdir(options.base, function(err, items) {
-    var filteredItems = items.filter(function(item) {
-      return !item.includes("_");
-    });
-
-    filteredItems.forEach(function(item) {
-      item = item.replace(".twig", ".html");
-
-      linksHTML += 
-        `<li class="sitemap_item">
-          <a class="sitemap_link" href="${ options.indexDest + item }">${ item }</a>
-        </li>`;
-
-      sitemap.push(item);
-    });
-
-    indexHTML = 
-      `<!DOCTYPE html>
+<!DOCTYPE html>
       <html lang="en">
         <head>
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-          <title>${ options.name } | Sitemap</title>
+          <title>Project X | Sitemap</title>
           <style>
             html {
               height: 100%;
@@ -103,25 +72,19 @@ module.exports = function(customOptions) {
         <body>
           <header class="sitemap_header">
             <h1 class="sitemap_title">
-              <a class="sitemap_title_link" href="page-home.html">${ options.name } Sitemap</a>
+              <a class="sitemap_title_link" href="page-home.html">Project X Sitemap</a>
             </h1>
           </header>
           <main class="sitemap_main">
             <ul class="sitemap_items">
-              ${ linksHTML }
+              <li class="sitemap_item">
+          <a class="sitemap_link" href="static-html/templatesaxe.html">axe.html</a>
+        </li><li class="sitemap_item">
+          <a class="sitemap_link" href="static-html/templatespage-home.html">page-home.html</a>
+        </li><li class="sitemap_item">
+          <a class="sitemap_link" href="static-html/templatespage-master.html">page-master.html</a>
+        </li>
             </ul>
           </main>
         </body>
-      </html>`;
-
-    fs.mkdir(options.indexDest, { 
-      recursive: true 
-    }, (err) => {
-      if (err) throw err;
-
-      fs.writeFile(options.indexDest + '/index.html', indexHTML, function(err) {
-        if (err) throw err;
-      });
-    });
-  });
-}
+      </html>

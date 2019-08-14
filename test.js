@@ -1,3 +1,3 @@
-const gen = require("./index");
+const generateSitemap = require("./index");
 
-gen();
+generateSitemap();
