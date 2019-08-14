@@ -4,7 +4,7 @@ module.exports = function(customOptions) {
   var defaultOptions = {
     name: "Project X",
     base: "src/twig/templates",
-    indexDest: "static-html/templates"
+    indexDest: "static-html"
   }
 
   var options = customOptions ? Object.assign(defaultOptions, customOptions) : defaultOptions;
