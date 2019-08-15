@@ -5,13 +5,13 @@ module.exports = function(customOptions) {
     name: 'Project X',
     base: 'src/twig/templates',
     pagePath: 'templates',
-    indexDest: 'static-html'
+    dest: 'static-html'
   }
 
   var options = customOptions ? Object.assign(defaultOptions, customOptions) : defaultOptions;
   var sitemap = [];
   var linksHTML = '';
-  var indexHTML = '';
+  var resultsHTML = '';
 
   fs.readdir(options.base, function(err, items) {
     var filteredItems = items.filter(function(item) {
@@ -29,7 +29,7 @@ module.exports = function(customOptions) {
       sitemap.push(item);
     });
 
-    indexHTML = 
+    resultsHTML = 
       `<!DOCTYPE html>
       <html lang="en">
         <head>
@@ -119,12 +119,12 @@ module.exports = function(customOptions) {
         </body>
       </html>`;
 
-    fs.mkdir(options.indexDest, { 
+    fs.mkdir(options.dest, { 
       recursive: true 
     }, (err) => {
       if (err) throw err;
 
-      fs.writeFile(options.indexDest + '/index.html', indexHTML, function(err) {
+      fs.writeFile(options.dest + '/index.html', resultsHTML, function(err) {
         if (err) throw err;
       });
     });
