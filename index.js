@@ -4,7 +4,6 @@ module.exports = function(customOptions) {
   var defaultOptions = {
     name: 'Project X',
     base: 'src/twig/templates',
-    pagePath: 'templates',
     dest: 'static-html'
   }
 
@@ -23,7 +22,7 @@ module.exports = function(customOptions) {
 
       linksHTML += 
         `<li class="sitemap_item">
-          <a class="sitemap_link" href="${ options.pagePath + "/" + item }">${ item }</a>
+          <a class="sitemap_link" href="${ item }">${ item.replace(/-/g, ' ').replace('.html', '') }</a>
         </li>`;
 
       sitemap.push(item);
@@ -108,7 +107,7 @@ module.exports = function(customOptions) {
         <body>
           <header class="sitemap_header">
             <h1 class="sitemap_title">
-              <a class="sitemap_title_link" href="${ defaultOptions.pagePath }/page-home.html">${ options.name } Sitemap</a>
+              <a class="sitemap_title_link" href="page-home.html">${ options.name } Sitemap</a>
             </h1>
           </header>
           <main class="sitemap_main">
